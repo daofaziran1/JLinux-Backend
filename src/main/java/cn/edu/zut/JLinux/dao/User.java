@@ -87,4 +87,17 @@ public class User {
     public void setCwd(String cwd) {
         this.cwd = cwd;
     }
+
+    public long getLastLogin() {
+        return lastLogin;
+    }
+
+    public void setLastLogin(long lastLogin) {
+        this.lastLogin = lastLogin;
+    }
+
+    @Override
+    public String toString() {
+        return userName + ":x:" + uid + ":" + gid + ":" + gecos + ":" + homeDirectory;
+    }
 }

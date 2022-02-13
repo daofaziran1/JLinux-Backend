@@ -1,97 +1,76 @@
 package cn.edu.zut.JLinux.dao;
 
+import java.io.File;
+import java.util.Date;
+
 public class Mail {
-    private String sender;
-    private String receiver;
-    private String title;
-    private String content;
-    private long time;
-    private int id;
-    private int status;
-    private int type;
-    private int isRead;
+    private int mid;
+    private String subject;// 主题
+    private String from;// 发件人地址
+    private String to;// 收件人地址
+    private Date date;// 发送时间
+    private String content;// 邮件内容
+    private boolean isRead;// 是否已读
+    private File file;// 附件
 
-    public Mail(String sender, String receiver, String title, String content, long time, int id, int status, int type,
-            int isRead) {
-        this.sender = sender;
-        this.receiver = receiver;
-        this.title = title;
+    public Mail(String subject, String from, String to, Date date, String content, boolean isRead, File file) {
+        this.subject = subject;
+        this.from = from;
+        this.to = to;
+        this.date = date;
         this.content = content;
-        this.time = time;
-        this.id = id;
-        this.status = status;
-        this.type = type;
         this.isRead = isRead;
+        this.file = file;
     }
-
-    public Mail(String sender, String receiver, String title, String content, long time, int id, int status, int type) {
-        this.sender = sender;
-        this.receiver = receiver;
-        this.title = title;
+    public Mail(int mid, String subject, String from, String to, Date date, String content, boolean isRead, File file) {
+        this.mid = mid;
+        this.subject = subject;
+        this.from = from;
+        this.to = to;
+        this.date = date;
         this.content = content;
-        this.time = time;
-        this.id = id;
-        this.status = status;
-        this.type = type;
+        this.isRead = isRead;
+        this.file = file;
     }
 
-    public String getSender() {
-        return sender;
+    public int getMid() {
+        return mid;
     }
 
-    public void setSender(String sender) {
-        this.sender = sender;
+    public void setMid(int mid) {
+        this.mid = mid;
+    }
+    public String getSubject() {
+        return subject;
     }
 
-    public String getReceiver() {
-        return receiver;
+    public String getFrom() {
+        return from;
     }
 
-    public void setReceiver(String receiver) {
-        this.receiver = receiver;
+    public String getTo() {
+        return to;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
+    public Date getDate() {
+        return date;
     }
 
     public String getContent() {
         return content;
     }
 
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public long getTime() {
-        return time;
-    }
-
-    public void setTime(long time) {
-        this.time = time;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
     public boolean isRead() {
-        return isRead == 1;
+        return isRead;
     }
+
+    public File getFile() {
+        return file;
+    }
+
+    public boolean changeRead() {
+        // 如果已读，则变为未读，否则变为已读
+        return isRead = !isRead;
+    }
+
 }

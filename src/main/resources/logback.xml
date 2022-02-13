@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="UserAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/USER.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/USER-%d{yyyy-MM-dd}.log</fileNamePattern>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} %-5level %logger{5} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="GroupAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/group.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/group-%d{yyyy-MM-dd}.log</fileNamePattern>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} %-5level %logger{5} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="MailAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/mail.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/mail-%d{yyyy-MM-dd}.log</fileNamePattern>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} %-5level %logger{5} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="UserLogger" level="DEBUG" additivity="false">
+        <appender-ref ref="UserAppender" />
+    </logger>
+
+    <logger name="GroupLogger" level="DEBUG" additivity="false">
+        <appender-ref ref="GroupAppender" />
+    </logger>
+
+    <logger name="MailLogger" level="DEBUG" additivity="false">
+        <appender-ref ref="MailAppender" />
+    </logger>
+
+
+</configuration>

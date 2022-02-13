@@ -4,33 +4,64 @@ import java.util.ArrayList;
 
 public class Group {
     private String groupname;
-    private String groupid;
+    private Integer groupid;
     private String groupdesc;
-    private ArrayList<User> users;
-    public void setGroupname(String groupname) {
+    private ArrayList<Integer> userList;
+
+    public Group(String groupname, Integer groupid, String groupdesc, ArrayList<Integer> userList) {
         this.groupname = groupname;
+        this.groupid = groupid;
+        this.groupdesc = groupdesc;
+        this.userList = userList;
     }
+
     public String getGroupname() {
         return groupname;
     }
-    public void setGroupid(String groupid) {
-        this.groupid = groupid;
+
+    public void setGroupname(String groupname) {
+        this.groupname = groupname;
     }
-    public String getGroupid() {
+
+    public Integer getGroupid() {
         return groupid;
     }
-    public void setGroupdesc(String groupdesc) {
-        this.groupdesc = groupdesc;
+
+    public void setGroupid(Integer groupid) {
+        this.groupid = groupid;
     }
+
     public String getGroupdesc() {
         return groupdesc;
     }
-    public void setUsers(ArrayList<User> users) {
-        this.users = users;
+
+    public void setGroupdesc(String groupdesc) {
+        this.groupdesc = groupdesc;
     }
-    public ArrayList<User> getUsers() {
-        return users;
+
+    public ArrayList<Integer> getUserList() {
+        return userList;
     }
-    
+
+    public void setUserList(ArrayList<Integer> userList) {
+        this.userList = userList;
+    }
+
+
+    public String getUserString() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < userList.size(); i++) {
+            sb.append(userList.get(i));
+            if (i != userList.size() - 1) {
+                sb.append(",");
+            }
+        }
+        return sb.toString();
+    }
+
+    @Override
+    public String toString() {
+        return groupname + ":x:" + groupid + ":" + groupdesc + ":" + getUserString();
+    }
 
 }
