@@ -1,0 +1,13 @@
+
+
+POST http://127.0.0.1:8080/exec
+content-type: application/json
+
+{
+    "token":"0701f75d-2a7b-423f-9e07-b157093bb2d3",
+    "command":"useradd aa",
+    "time":1000000
+}
+
+
+

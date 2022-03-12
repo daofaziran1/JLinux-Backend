@@ -13,7 +13,7 @@ public class User {
     private long lastLogin; // 上次登录时间
     private String cwd;
 
-    public User(String userName, int uid, int gid, String gecos, String homeDirectory, String shell) {
+    public User(String userName, int uid, int gid, String gecos, String homeDirectory) {
         this.userName = userName;
         this.uid = uid;
         this.gid = gid;
@@ -98,6 +98,6 @@ public class User {
 
     @Override
     public String toString() {
-        return userName + ":x:" + uid + ":" + gid + ":" + gecos + ":" + homeDirectory;
+        return userName + ":"+passwordHash+":" + uid + ":" + gid + ":" + gecos + ":" + homeDirectory;
     }
 }

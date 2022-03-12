@@ -2,6 +2,7 @@ package cn.edu.zut.JLinux.manager;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -16,7 +17,7 @@ import cn.edu.zut.JLinux.dao.Group;
 import cn.edu.zut.JLinux.dao.User;
 
 public class GroupManager {
-    public static String basePath = "\\etc\\groups";
+    public static String basePath = "vm\\etc\\groups";
     private HashMap<Integer, Group> groups = new HashMap<Integer, Group>();
     private Logger logger = LoggerFactory.getLogger("GroupLogger");
     static GroupManager instance = new GroupManager();
@@ -31,9 +32,19 @@ public class GroupManager {
     }
 
     public static GroupManager getInstance() {
+        var file=new File(basePath);
+        if(!file.exists()){
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         return instance;
     }
-
+    public Integer generateGroupId(){
+        return groups.size() ;
+    }
     public Boolean modifyGroup(Group group) {
         if (groups.containsKey(group.getGroupid())) {
             groups.put(group.getGroupid(), group);
@@ -116,6 +127,14 @@ public class GroupManager {
         logger.info("add group " + group.getGroupid() + " success");
         toFile(basePath);
         return true;
+    }
+
+    public Group addGroup(String groupname) {
+        var group=new Group(groupname,generateGroupId(),"",new ArrayList<Integer>());
+        groups.put(group.getGroupid(), group);
+        logger.info("add group " + group.getGroupid() + " success");
+        toFile(basePath);
+        return group;
     }
 
     public void fromFile(String fileName) {

@@ -8,15 +8,31 @@ import cn.edu.zut.JLinux.manager.MailManager;
 import cn.edu.zut.JLinux.manager.UserManager;
 
 public class OperaSystem {
-    public static GroupManager groupManager = new GroupManager();
+    public static GroupManager groupManager = GroupManager.getInstance();
     public static UserManager userManager = UserManager.getInstance();
-    public static MailManager mailManager = new MailManager();
+    public static MailManager mailManager = MailManager.getInstance();
+
+    public static Boolean addUser(User callUser, String addUser) {
+        if (callUser==null||callUser.getUid() == 0) {
+            var group=addGroup(callUser, addUser);
+            return userManager.addUser(addUser,group);
+        } else {
+            return false;
+        }
+    }
 
     public static Boolean addUser(User callUser, User addUser) {
         if (callUser.getUid() == 0) {
             return userManager.addUser(addUser);
         } else {
             return false;
+        }
+    }
+    public static Group addGroup(User callUser, String addGroup) {
+        if (callUser==null || callUser.getUid() == 0) {
+            return groupManager.addGroup(addGroup);
+        } else {
+            return null;
         }
     }
 

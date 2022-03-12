@@ -13,6 +13,11 @@ public class MailManager {
 
     private HashMap<Integer, MailBox> mailBoxMap = new HashMap<Integer, MailBox>();
     private Logger logger = LoggerFactory.getLogger("MailLogger");
+    static MailManager instance = new MailManager();
+
+    public static MailManager getInstance() {
+        return instance;
+    }
     public boolean sendMail(Integer from, Integer to, String subject, Mail content) {
         MailBox fromBox = mailBoxMap.get(from);
         MailBox toBox = mailBoxMap.get(to);

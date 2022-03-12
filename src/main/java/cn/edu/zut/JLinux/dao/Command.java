@@ -1,47 +1,60 @@
 package cn.edu.zut.JLinux.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Command {
-    private String command;
-    private String result;
+    private HashMap<String,Object> result;
     private String error;
     private String status;
-    private String user;
+    private User user;
+    private String token;
     private long time;
     private String type;
     private ArrayList<String> argArrayList;
 
     public Command() {
         argArrayList = new ArrayList<String>();
+        result=new HashMap<String,Object>();
     }
 
-    public Command(String type, String command, String user, long time, ArrayList<String> argArrayList) {
+    public Command(String type,User user, long time, ArrayList<String> argArrayList) {
         this.type = type;
-        this.command = command;
         this.user = user;
         this.time = time;
         this.argArrayList = argArrayList;
+        result=new HashMap<String,Object>();
     }
 
+    public ArrayList<String> getArgArrayList() {
+        return argArrayList;
+    }
+
+    public void setToken(String token){
+        this.token = token;
+    }
+
+    public String getToken(){
+        return token;
+    }
+
+    public void setArgArrayList(ArrayList<String> argArrayList) {
+        this.argArrayList = argArrayList;
+    }
     public void execute(){
         
     }
 
-    public String getCommand() {
-        return command;
-    }
-
-    public void setCommand(String command) {
-        this.command = command;
-    }
-
-    public String getResult() {
+    public HashMap<String,Object> getResult() {
         return result;
     }
 
-    public void setResult(String result) {
+    public void setResult(HashMap<String,Object> result) {
         this.result = result;
+    }
+
+    public void addResult(String key,Object value){
+        result.put(key, value);
     }
 
     public String getError() {
@@ -60,11 +73,11 @@ public class Command {
         this.status = status;
     }
 
-    public String getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(String user) {
+    public void setUser(User user) {
         this.user = user;
     }
 
@@ -87,13 +100,13 @@ public class Command {
     @Override
     public String toString() {
         return "Command{" +
-                "command='" + command + '\'' +
-                ", result='" + result + '\'' +
+                "result='" + result + '\'' +
                 ", error='" + error + '\'' +
                 ", status='" + status + '\'' +
                 ", user='" + user + '\'' +
-                ", time='" + time + '\'' +
+                ", time=" + time +
                 ", type='" + type + '\'' +
+                ", argArrayList=" + argArrayList +
                 '}';
     }
 

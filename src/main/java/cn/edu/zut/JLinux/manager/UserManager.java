@@ -2,26 +2,47 @@ package cn.edu.zut.JLinux.manager;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import cn.edu.zut.JLinux.Utils.Encode;
+import cn.edu.zut.JLinux.dao.Group;
 import cn.edu.zut.JLinux.dao.User;
 
 public class UserManager {
     private HashMap<Integer, User> userMap;
-    public static String basePath = "\\etc\\passwd";
+    public static String basePath = "vm\\etc\\passwd";
     private Logger logger = LoggerFactory.getLogger("UserLogger");
     static UserManager instance = new UserManager();
 
     public UserManager() {
         userMap = new HashMap<Integer, User>();
+        fromFile(basePath);
     }
 
     public static UserManager getInstance() {
+        var file = new File(basePath);
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         return instance;
+    }
+
+    public Integer generateUserId() {
+        return userMap.size() ;
+    }
+
+    public Boolean isUserExist(String username) {
+        return userMap.values().stream().anyMatch(user -> user.getUserName().equals(username));
     }
 
     public Boolean modifyUser(User user) {
@@ -62,8 +83,19 @@ public class UserManager {
         return true;
     }
 
+    public Boolean addUser(String username, Group group) {
+        User user = new User(username, generateUserId(), group.getGroupid(), "", "/home/" + username);
+        userMap.put(user.getUid(), user);
+        toFile(basePath);
+        return true;
+    }
+
     public User getUserName(int uid) {
         return userMap.get(uid);
+    }
+
+    public User getUser(String name) {
+        return userMap.values().stream().filter(user -> user.getUserName().equals(name)).findFirst().orElse(null);
     }
 
     public void removeUser(int uid) {
@@ -109,13 +141,13 @@ public class UserManager {
 
     public void fromFile(String fileName) {
         // username : password : uid : gid : gecos : homedir : shell
-
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String line = null;
             while ((line = br.readLine()) != null) {
                 String[] userInfo = line.split(":");
                 User user = new User(userInfo[0], Integer.parseInt(userInfo[2]), Integer.parseInt(userInfo[3]),
-                        userInfo[4], userInfo[5], userInfo[6]);
+                        userInfo[4], userInfo[5]);
+                user.setPasswordHash(userInfo[1]);
                 userMap.put(Integer.parseInt(userInfo[2]), user);
             }
         } catch (Exception e) {
