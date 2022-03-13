@@ -144,6 +144,9 @@ public class UserManager {
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String line = null;
             while ((line = br.readLine()) != null) {
+                if(line.equals("")){
+                    continue;
+                }
                 String[] userInfo = line.split(":");
                 User user = new User(userInfo[0], Integer.parseInt(userInfo[2]), Integer.parseInt(userInfo[3]),
                         userInfo[4], userInfo[5]);

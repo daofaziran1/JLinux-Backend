@@ -142,10 +142,16 @@ public class GroupManager {
             // groupname : password :id : groupdesc : userList
             while (br.ready()) {
                 String line = br.readLine();
+                if(line.equals("")){
+                    continue;
+                }
                 String[] fields = line.split(":");
-                var userList = Arrays.asList(fields[4].split(",")).stream().map(i -> {
-                    return Integer.parseInt(i);
-                }).collect(ArrayList<Integer>::new, ArrayList::add, ArrayList::addAll);
+                var userList=new ArrayList<Integer>();
+                if(fields.length>4){
+                    userList = Arrays.asList(fields[4].split(",")).stream().map(i -> {
+                        return Integer.parseInt(i);
+                    }).collect(ArrayList<Integer>::new, ArrayList::add, ArrayList::addAll);
+                }
                 Group group = new Group(fields[0], Integer.parseInt(fields[2]), fields[3], userList);
                 groups.put(group.getGroupid(), group);
             }
