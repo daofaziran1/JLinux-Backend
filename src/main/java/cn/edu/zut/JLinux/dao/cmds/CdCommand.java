@@ -22,6 +22,7 @@ public class CdCommand extends Command {
                 Login.changePath(getToken(), newPath);
                 addResult("status", true);
                 addResult("msg", "切换成功");
+                addResult("path", Login.getPathByToken(getToken()).toString().replaceAll("C:", ""));
             }else{
                 addResult("status", false);
                 addResult("msg", "不是文件夹");

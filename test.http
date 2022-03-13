@@ -1,6 +1,14 @@
 
 
-POST http://127.0.0.1:8080/exec
+POST http://127.0.0.1:8086/login
+content-type: application/json
+
+{
+    "name":"root",
+    "password":"123456"
+}
+
+POST http://127.0.0.1:8086/exec
 content-type: application/json
 
 {

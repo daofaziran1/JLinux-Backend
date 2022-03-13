@@ -20,6 +20,6 @@ public class PwdCommand extends Command{
     public void execute() {
         var path = Login.getPathByToken(getToken());
         addResult("status", true);
-        addResult("msg", path.getAbsolutePath());
+        addResult("msg", path.getAbsolutePath().toString().replaceAll("C:", ""));
     }
 }

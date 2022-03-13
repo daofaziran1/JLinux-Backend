@@ -35,6 +35,7 @@ public class Login {
                 HashMap<String, Object> map = new HashMap<String, Object>();
                 map.put("token", token);
                 map.put("status", true);
+                map.put("path",getPathByToken(token));
                 return JSON.toJSONString(map);
             }
         }
